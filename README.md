@@ -1,4 +1,4 @@
-# langchain-ceramic
+# LangChain Ceramic
 
 LangChain integration for [Ceramic](https://ceramic.ai) — a web search API built for LLMs.
 
@@ -56,10 +56,10 @@ Each retrieved `Document` has:
 ```python
 from langchain_ceramic import CeramicSearch
 from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 
 tools = [CeramicSearch(max_results=5)]
-agent = create_react_agent(ChatOpenAI(model="gpt-5.5"), tools)
+agent = create_agent(ChatOpenAI(model="gpt-5.5"), tools=tools)
 
 result = agent.invoke({"messages": [{"role": "user", "content": "Find recent news about GLP-1 drugs"}]})
 print(result["messages"][-1].content)
