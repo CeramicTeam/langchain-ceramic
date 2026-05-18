@@ -42,7 +42,7 @@ chain = (
     | StrOutputParser()
 )
 
-answer = chain.invoke("What are the latest AI chip export restrictions?")
+answer = chain.invoke("AI chip export restrictions 2025")
 print(answer)
 ```
 
@@ -61,7 +61,7 @@ from langchain.agents import create_agent
 tools = [CeramicSearch(max_results=5)]
 agent = create_agent(ChatOpenAI(model="gpt-5.5"), tools=tools)
 
-result = agent.invoke({"messages": [{"role": "user", "content": "Find recent news about GLP-1 drugs"}]})
+result = agent.invoke({"messages": [{"role": "user", "content": "GLP-1 drugs news 2025"}]})
 print(result["messages"][-1].content)
 ```
 
