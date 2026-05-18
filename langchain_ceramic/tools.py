@@ -10,7 +10,7 @@ from ceramic_ai import AsyncCeramic, Ceramic
 
 
 class CeramicSearchInput(BaseModel):
-    query: str = Field(description="Search query to look up on the web.")
+    query: str = Field(description="Keyword search query (2-10 words). Use specific entities, topics, locations, and dates — not natural language questions.")
 
 
 class CeramicSearch(BaseTool):
@@ -35,9 +35,16 @@ class CeramicSearch(BaseTool):
 
     name: str = "ceramic_search"
     description: str = (
-        "A web search tool powered by Ceramic. "
-        "Use this to find current information from the web. "
-        "Input should be a search query string."
+        "Search the web using Ceramic. "
+        "Ceramic uses lexical (keyword) search — it matches exact keywords and does not interpret natural language or synonyms automatically. "
+        "Before calling this tool, rewrite the user's question as a keyword query of 2-10 words: "
+        "extract specific entities, topics, locations, and dates; "
+        "replace conversational phrasing with concrete keywords; "
+        "include relevant synonyms explicitly when terminology is ambiguous; "
+        "keep word order meaningful ('house cat' and 'cat house' return different results). "
+        "Good examples: '2026 Super Bowl halftime performer', 'California tenant security deposit return law', "
+        "'Serena Williams Grand Slam titles', 'California rent increase causes housing shortage 2025'. "
+        "If the search returns no useful results, retry with a more specific keyword query."
     )
     args_schema: Type[BaseModel] = CeramicSearchInput
 
