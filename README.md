@@ -112,7 +112,7 @@ Both `CeramicSearchRetriever` and `CeramicSearch` support async:
 docs = await retriever.ainvoke("California rental laws")
 ```
 
-## API reference
+## Parameters
 
 ### `CeramicSearch`
 
