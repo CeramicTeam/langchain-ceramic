@@ -16,7 +16,7 @@ Generate an API key at [platform.ceramic.ai/keys](https://platform.ceramic.ai/ke
 export CERAMIC_API_KEY="your-api-key"
 ```
 
-Also set up any additional API keys you will need, e.g., OpenAI via 
+Also set up any additional API keys you need, e.g., OpenAI via 
 ```bash 
 export OPENAI_API_KEY="your-api-key"
 ```
