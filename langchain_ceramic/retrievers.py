@@ -14,7 +14,7 @@ from pydantic import ConfigDict, PrivateAttr, model_validator
 from ceramic_ai import AsyncCeramic, Ceramic
 
 
-class CeramicRetriever(BaseRetriever):
+class CeramicSearchRetriever(BaseRetriever):
     """Retriever that uses Ceramic's web search API.
 
     Setup:
@@ -28,9 +28,9 @@ class CeramicRetriever(BaseRetriever):
     Example:
         .. code-block:: python
 
-            from langchain_ceramic import CeramicRetriever
+            from langchain_ceramic import CeramicSearchRetriever
 
-            retriever = CeramicRetriever(k=5)
+            retriever = CeramicSearchRetriever(k=5)
             docs = retriever.invoke("latest AI chip export restrictions")
     """
 
@@ -43,7 +43,7 @@ class CeramicRetriever(BaseRetriever):
     _async_client: AsyncCeramic = PrivateAttr(default=None)
 
     @model_validator(mode="after")
-    def validate_api_key(self) -> "CeramicRetriever":
+    def validate_api_key(self) -> "CeramicSearchRetriever":
         key = self.api_key or os.environ.get("CERAMIC_API_KEY")
         if not key:
             raise ValueError(
