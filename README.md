@@ -5,7 +5,7 @@ LangChain integration for [Ceramic](https://ceramic.ai) — a web search API bui
 ## Installation
 
 ```bash
-pip install langchain-ceramic
+pip install langchain langchain-openai langchain-ceramic
 ```
 
 ## Setup
@@ -16,7 +16,10 @@ Generate an API key at [platform.ceramic.ai/keys](https://platform.ceramic.ai/ke
 export CERAMIC_API_KEY="your-api-key"
 ```
 
-Also set up any additional API keys you will need, e.g., for OpenAI or Anthropic.
+Also set up any additional API keys you will need, e.g., OpenAI via 
+```bash 
+export OPENAI_API_KEY="your-api-key"
+```
 
 ## Example usage
 
@@ -26,7 +29,6 @@ LangChain agents can use Ceramic search via tool calling to support their respon
 Ceramic uses lexical (keyword-based) search. See [Best Practices](https://docs.ceramic.ai/api/search/best-practices) for information on how to use Ceramic Search most effectively. When calling Ceramic search via a tool call, the LLM automatically converts the natural language query into an optimized keyword-based query for search.
 
 ```python
-# !pip install -qU langchain langchain-openai langchain-ceramic
 from langchain_ceramic import CeramicSearch
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
@@ -54,7 +56,6 @@ Use the retriever tool `CeramicSearchRetriever` to obtain relevant documents for
 Because Ceramic uses lexical search, we first convert the natural language query into keywords using an LLM before retrieval. The original natural language query is still passed through to the answer prompt.
 
 ```python
-# !pip install -qU langchain langchain-openai langchain-ceramic
 from langchain_ceramic import CeramicSearchRetriever
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
