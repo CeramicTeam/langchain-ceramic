@@ -51,7 +51,7 @@ print(result["messages"][-1].content)
 ### RAG pipeline
 Use the retriever tool `CeramicSearchRetriever` to obtain relevant documents for RAG pipelines.
 
-Because Ceramic uses lexical search, we first convert the natural language query into keywords using an LLM before retrieval. The original query is still passed through to the answer prompt.
+Because Ceramic uses lexical search, we first convert the natural language query into keywords using an LLM before retrieval. The original natural language query is still passed through to the answer prompt.
 
 ```python
 # !pip install -qU langchain langchain-openai langchain-ceramic
