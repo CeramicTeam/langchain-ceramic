@@ -3,13 +3,13 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from langchain_ceramic import CeramicRetriever, CeramicSearch
+from langchain_ceramic import CeramicSearchRetriever, CeramicSearch
 
 
 def test_retriever_init():
     with patch("langchain_ceramic.retrievers.Ceramic"), \
          patch("langchain_ceramic.retrievers.AsyncCeramic"):
-        r = CeramicRetriever(api_key="test-key")
+        r = CeramicSearchRetriever(api_key="test-key")
     assert r.k == 10
 
 
@@ -23,7 +23,7 @@ def test_tool_init():
 def test_retriever_raises_without_key(monkeypatch):
     monkeypatch.delenv("CERAMIC_API_KEY", raising=False)
     with pytest.raises(ValueError, match="Ceramic API key required"):
-        CeramicRetriever()
+        CeramicSearchRetriever()
 
 
 def test_tool_raises_without_key(monkeypatch):
@@ -36,7 +36,7 @@ def test_retriever_reads_env_var(monkeypatch):
     monkeypatch.setenv("CERAMIC_API_KEY", "env-key")
     with patch("langchain_ceramic.retrievers.Ceramic") as mock_ceramic, \
          patch("langchain_ceramic.retrievers.AsyncCeramic"):
-        r = CeramicRetriever()
+        r = CeramicSearchRetriever()
     mock_ceramic.assert_called_once_with(api_key="env-key")
     assert r.api_key is None  # api_key field stays None; key came from env
 
@@ -61,7 +61,7 @@ def test_retriever_get_documents():
     with patch("langchain_ceramic.retrievers.Ceramic") as mock_ceramic, \
          patch("langchain_ceramic.retrievers.AsyncCeramic"):
         mock_ceramic.return_value.search.return_value = mock_response
-        r = CeramicRetriever(api_key="test-key", k=5)
+        r = CeramicSearchRetriever(api_key="test-key", k=5)
 
     from langchain_core.callbacks import CallbackManagerForRetrieverRun
     run_manager = MagicMock(spec=CallbackManagerForRetrieverRun)
