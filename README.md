@@ -68,7 +68,7 @@ retriever = CeramicSearchRetriever(k=5)
 
 # Convert the natural language query to keywords before retrieval
 keyword_prompt = PromptTemplate.from_template(
-    "Rewrite the following question as a 2-10 word keyword query for a lexical search engine.\n"
+    "Rewrite the following question as a 2-8 word keyword query for a lexical search engine.\n"
     "Rules:\n"
     "- Extract specific entities, topics, locations, and dates\n"
     "- Replace conversational phrasing with concrete keywords\n"
