@@ -35,16 +35,24 @@ class CeramicSearch(BaseTool):
 
     name: str = "ceramic_search"
     description: str = (
-        "Search the web using Ceramic. "
-        "Ceramic uses lexical (keyword) search — it matches exact keywords and does not interpret natural language or synonyms automatically. "
-        "Before calling this tool, rewrite the user's question as a keyword query of 2-10 words: "
-        "extract specific entities, topics, locations, and dates; "
-        "replace conversational phrasing with concrete keywords; "
-        "include relevant synonyms explicitly when terminology is ambiguous; "
-        "keep word order meaningful ('house cat' and 'cat house' return different results). "
-        "Good examples: '2026 Super Bowl halftime performer', 'California tenant security deposit return law', "
-        "'Serena Williams Grand Slam titles', 'California rent increase causes housing shortage 2025'. "
-        "If the search returns no useful results, retry with a more specific keyword query."
+        """
+        Search the web using Ceramic.
+        Use for accurate current information — news, prices, recent events, documentation, general fact checking.
+        Returns up to 10 ranked results with titles, URLs, and descriptions.
+        Ceramic matches exact keywords — it does not interpret natural language or synonyms automatically. Call Ceramic search with a keyword query version of the user's question.
+        Keyword query conversion rules:
+        - Queries must be 2-8 words
+        - Extract specific entities, topics, locations, and dates
+        - Replace conversational phrasing with concrete keywords
+        - Do not include uninformative words such as articles (the, a, an). Avoid prepositions (on, about, in, for, of, at, by, with) unless they are within established phrases or names (United States of America, Into the Wild).
+        - Include relevant synonyms explicitly when terminology is ambiguous
+        - Keep word order meaningful (`house cat` and `cat house` return different results)
+        - Good keyword query examples:
+            - "2026 Super Bowl halftime performer"
+            - "climate change effects global warming impact"
+            - "beginner investing strategies stocks bonds basics"
+        If the search returns no useful results, retry with a more specific keyword query.
+        """
     )
     args_schema: Type[BaseModel] = CeramicSearchInput
 
