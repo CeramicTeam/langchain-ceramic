@@ -68,15 +68,24 @@ retriever = CeramicSearchRetriever(k=5)
 
 # Convert the natural language query to keywords before retrieval
 keyword_prompt = PromptTemplate.from_template(
-    "Rewrite the following question as a 2-8 word keyword query for a lexical search engine.\n"
-    "Rules:\n"
-    "- Extract specific entities, topics, locations, and dates\n"
-    "- Replace conversational phrasing with concrete keywords\n"
-    "- Include relevant synonyms explicitly when terminology is ambiguous\n"
-    "- Keep word order meaningful\n"
-    "Example good keyword queries: 2026 Super Bowl halftime performer, Serena Williams Grand Slam titles, California rent increase causes housing shortage 2025\n"
-    "Return only the keyword query with no explanation.\n\n"
-    "Question: {query}"
+    """
+    Rewrite the following question as a 2-8 word keyword query for a lexical search engine.
+    
+    Rules:
+    - Extract specific entities, topics, locations, and dates
+    - Replace conversational phrasing with concrete keywords
+    - Do not include uninformative words such as articles (the, a, an). Avoid prepositions (on, about, in, for, of, at, by, with) unless they are within established phrases or names (United States of America, Into the Wild).
+    - Include relevant synonyms explicitly when terminology is ambiguous
+    - Keep word order meaningful (`house cat` and `cat house` return different results)
+    - Good keyword query examples:
+        - "2026 Super Bowl halftime performer"
+        - "climate change effects global warming impact"
+        - "beginner investing strategies stocks bonds basics"
+    
+    Return only the keyword query with no explanation.
+
+    Question: {query}
+    """
 )
 keyword_chain = keyword_prompt | llm | StrOutputParser()
 
